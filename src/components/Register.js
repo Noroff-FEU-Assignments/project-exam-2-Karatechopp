@@ -19,7 +19,7 @@ function Register() {
     try {
       const response = await axios.post(BASE_API + "auth/register/", data);
       if (response.status === 200) {
-        navigate("/Profile" + "?name=" + response.data.name);
+        navigate("/Profile?name=" + response.data.name);
       }
     } catch (error) {
       console.log("error:", error.response.data.errors[0]);

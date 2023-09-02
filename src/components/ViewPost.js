@@ -166,7 +166,7 @@ function ViewPost() {
           {postData.media && <img src={postData.media} alt="Post media" className="mx-auto max-w-full h-auto mt-4" />}
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <Link to={"/Profile" + "?name=" + postData.author.name}>
+              <Link to={"/Profile?name=" + postData.author.name}>
                 {postData.author.avatar ? (
                   <img src={postData.author.avatar} alt="Author avatar" className="w-16 h-16 rounded-full object-cover" />
                 ) : (
@@ -176,7 +176,7 @@ function ViewPost() {
                 )}
               </Link>
               <div className="ml-2">
-                <Link to={"/Profile" + "?name=" + postData.author.name}>
+                <Link to={"/Profile?name=" + postData.author.name}>
                   <p className="text-gray-700 dark:text-gray-300 font-semibold text-lg text-left">{postData.author.name}</p>
                 </Link>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Updated: {new Date(postData.updated).toLocaleDateString()}</p>
@@ -242,7 +242,7 @@ function ViewPost() {
                 mainComments.map((comment) => (
                   <div key={comment.id} className="bg-white dark:bg-gray-900 p-4 space-y-4 border border-gray-500 mb-4 rounded">
                     <div className="flex justify-between items-center">
-                      <Link to={"/Profile" + "?name=" + comment.author.name}>
+                      <Link to={"/Profile?name=" + comment.author.name}>
                         <div className="flex items-center">
                           {comment.author.avatar ? (
                             <img src={comment.author.avatar} alt="Author avatar" className="w-8 h-8 rounded-full object-cover" />
@@ -287,7 +287,7 @@ function ViewPost() {
                         <div key={reply.id} className="ml-6">
                           <div className="-mt-2">|</div>
                           <div className="flex justify-between items-center">
-                            <Link to={"/Profile" + "?name=" + reply.author.name}>
+                            <Link to={"/Profile?name=" + reply.author.name}>
                               <div className="flex items-center">
                                 {reply.author.avatar ? (
                                   <img src={reply.author.avatar} alt="Author avatar" className="w-8 h-8 rounded-full object-cover" />

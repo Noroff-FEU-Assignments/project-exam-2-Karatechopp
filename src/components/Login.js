@@ -28,7 +28,7 @@ function Login() {
         localStorage.setItem("ns_email", response.data.email);
         localStorage.setItem("ns_token", response.data.accessToken);
         setAuth(response.data.accessToken);
-        navigate("/Profile" + "?name=" + response.data.name);
+        navigate("/Profile?name=" + response.data.name);
       }
     } catch (error) {
       console.log("error:", error);
