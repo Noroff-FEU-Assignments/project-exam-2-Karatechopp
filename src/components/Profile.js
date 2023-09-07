@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_API } from "../constants/api";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PostCard } from "../common/PostCard";
 import { getProfileName, getToken } from "../common/LocalStorage";
@@ -18,7 +18,7 @@ function Profile() {
 
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  async function getProfile() {
+  const getProfile = useCallback(async () => {
     try {
       const response = await axios.get(url);
       response.data.posts.sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -26,10 +26,9 @@ function Profile() {
       setIsFollowing(checkFollowStatus(response.data.followers));
       setLoading(false);
     } catch (error) {
-      console.log("error", error);
       setError(error.toString());
     }
-  }
+  }, [url]);
 
   async function UpdateFollowProfile(name, update) {
     const url = BASE_API + "profiles/" + name + update;
@@ -41,7 +40,7 @@ function Profile() {
         getProfile();
       }
     } catch (error) {
-      console.log(error);
+      setError(error.toString());
     }
   }
 
@@ -53,9 +52,12 @@ function Profile() {
     }
   }
 
-  useEffect(function () {
-    getProfile();
-  }, []);
+  useEffect(
+    function () {
+      getProfile();
+    },
+    [getProfile]
+  );
 
   if (loading) {
     return <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 h-screen">Loading...</div>;
@@ -84,7 +86,7 @@ function Profile() {
                 </div>
               )}
             </div>
-            {profileNameQuery === getProfileName() ? (
+            {getProfileName() === profileData.name ? (
               <Link to="/UpdateAvatarBanner">
                 <button className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
                   Update Avatar and banner
@@ -111,11 +113,13 @@ function Profile() {
             </div>
             <div className="mt-5">{profileData.email}</div>
           </div>
-          <Link to={"/CreateNewPost"}>
-            <button className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
-              Create new post
-            </button>
-          </Link>
+          {getProfileName() === profileData.name && (
+            <Link to={"/CreateNewPost"}>
+              <button className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
+                Create new post
+              </button>
+            </Link>
+          )}
           <div>
             <h2 className="text-center mx-auto mb-2 text-2xl font-semibold">Posts</h2>
             {profileData.posts.length === 0 ? (

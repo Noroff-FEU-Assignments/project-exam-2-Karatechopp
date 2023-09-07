@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BASE_API } from "../constants/api";
 import { getProfileName, getToken } from "../common/LocalStorage";
 import { Link, useLocation } from "react-router-dom";
@@ -23,7 +23,7 @@ function ViewPost() {
 
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  async function getPostById() {
+  const getPostById = useCallback(async () => {
     try {
       const response = await axios.get(url);
       setPostData(response.data);
@@ -53,10 +53,9 @@ function ViewPost() {
       setMainComments(main);
       setLoading(false);
     } catch (error) {
-      console.log("error", error);
       setError(error.toString());
     }
-  }
+  }, [url]);
 
   const {
     register: commentRegister,
@@ -83,7 +82,7 @@ function ViewPost() {
         resetCommentForm();
       }
     } catch (error) {
-      console.log(error);
+      setError(error.toString());
     }
   }
 
@@ -100,7 +99,7 @@ function ViewPost() {
         resetReplyForm();
       }
     } catch (error) {
-      console.log(error);
+      setError(error.toString());
     }
   }
 
@@ -126,16 +125,13 @@ function ViewPost() {
         getPostById();
       }
     } catch (error) {
-      console.log("error", error);
+      setError(error.toString());
     }
   }
 
-  useEffect(
-    function () {
-      getPostById();
-    },
-    [url]
-  );
+  useEffect(() => {
+    getPostById();
+  }, [getPostById]);
 
   if (loading) {
     return <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 h-screen">Loading...</div>;
@@ -222,10 +218,14 @@ function ViewPost() {
             <form className="flex flex-col justify-between items-center" onSubmit={handleCommentSubmit(createComment)}>
               <label>Comment on post</label>
               {commentErrors.comment && <DisplayMessage messageType="error">Comment cannot be empty</DisplayMessage>}
-              <input
+              <textarea
                 type="text"
                 placeholder="Comment"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full resize-none px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                onInput={(event) => {
+                  event.target.style.height = "auto";
+                  event.target.style.height = event.target.scrollHeight + 5 + "px";
+                }}
                 {...commentRegister("comment", { required: true })}
               />
               <button

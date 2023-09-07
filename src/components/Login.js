@@ -21,7 +21,6 @@ function Login() {
   async function onSubmit(data) {
     try {
       const response = await axios.post(BASE_API + "auth/login", data);
-      console.log(response);
 
       if (response.data.accessToken) {
         localStorage.setItem("ns_name", response.data.name);

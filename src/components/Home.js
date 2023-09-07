@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_API } from "../constants/api";
 import { getToken } from "../common/LocalStorage";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PostCard } from "../common/PostCard";
 
 function Home() {
@@ -14,17 +14,16 @@ function Home() {
 
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  async function getPostsFollowing() {
+  const getPostsFollowing = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(urlFollowing);
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setError(error);
     }
-  }
+  }, [urlFollowing]);
 
   async function getPostsAll() {
     setLoading(true);
@@ -33,14 +32,13 @@ function Home() {
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setError(error);
     }
   }
 
   useEffect(() => {
     getPostsFollowing();
-  }, []);
+  }, [getPostsFollowing]);
 
   if (loading) {
     return <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 h-screen">Loading...</div>;

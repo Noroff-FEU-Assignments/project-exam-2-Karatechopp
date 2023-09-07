@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_API } from "../constants/api";
 import { getToken } from "../common/LocalStorage";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Profiles() {
@@ -13,7 +13,7 @@ function Profiles() {
 
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  async function getProfiles() {
+  const getProfiles = useCallback(async () => {
     try {
       const response = await axios.get(url);
       setProfiles(response.data);
@@ -22,11 +22,14 @@ function Profiles() {
       console.log("error", error);
       setError(error.toString());
     }
-  }
+  }, [url]);
 
-  useEffect(function () {
-    getProfiles();
-  }, []);
+  useEffect(
+    function () {
+      getProfiles();
+    },
+    [getProfiles]
+  );
 
   if (loading) {
     return <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 h-screen">Loading...</div>;

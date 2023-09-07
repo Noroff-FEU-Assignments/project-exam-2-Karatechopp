@@ -14,7 +14,7 @@ function Nav() {
     if (!auth && location.pathname !== "/Register") {
       navigate("/");
     }
-  }, [auth]);
+  }, [auth, location.pathname, navigate]);
 
   function logout() {
     setAuth(null);
@@ -35,47 +35,53 @@ function Nav() {
   };
 
   return (
-    <nav className="bg-gray-200 dark:bg-gray-700 p-4">
+    <nav className="bg-gray-700 p-4">
       <div className="flex justify-between items-center mx-auto max-w-6xl">
-        <Link to={`/Profile?name=${getProfileName()}`} className="text-white font-bold text-lg">
-          Logo
+        <Link to={"/Profile?name=" + getProfileName()} className="text-white font-bold text-lg">
+          Noroff social
         </Link>
         <div className="block sm:hidden">
-          <button className="text-gray-900 dark:text-white hover:text-gray-200 focus:outline-none text-3xl" onClick={toggleDropdown}>
+          <button className="text-white hover:text-gray-200 focus:outline-none text-3xl" onClick={toggleDropdown}>
             {toggleEmojiDropdown()}
           </button>
         </div>
         <div className="hidden sm:flex space-x-4">
           {auth ? (
             <>
-              <NavLink to="/Home" className="text-gray-900 dark:text-white">
+              <NavLink to="/Home" className="text-white">
                 Home
               </NavLink>
-              <NavLink to="/Profiles" className="text-gray-900 dark:text-white">
+              <NavLink to="/Profiles" className="text-white">
                 All Profiles
               </NavLink>
-              <button className="text-gray-900 dark:text-white" onClick={logout}>
+              <NavLink to={"/Profile?name=" + getProfileName()} className="text-white">
+                Your profile
+              </NavLink>
+              <button className="text-white" onClick={logout}>
                 Log out
               </button>
             </>
           ) : (
-            <NavLink className="text-gray-900 dark:text-white" to="/">
+            <NavLink className="text-white" to="/">
               Login
             </NavLink>
           )}
         </div>
       </div>
 
-      <div className={`${isDropdownOpen ? "" : "hidden"} absolute left-0 bg-gray-200 dark:bg-gray-700 w-full p-4 sm:hidden text-right`}>
+      <div className={`${!isDropdownOpen && "hidden"} absolute text-white left-0 bg-gray-700 w-full p-4 sm:hidden text-right`}>
         {auth ? (
           <>
-            <NavLink to="/Home" className="block mt-4 text-gray-900 dark:text-white">
+            <NavLink to="/Home" className="block mt-4">
               Home
             </NavLink>
-            <NavLink to="/Profiles" className="block mt-4 text-gray-900 dark:text-white">
+            <NavLink to="/Profiles" className="block mt-4">
               All Profiles
             </NavLink>
-            <button className="mt-4 text-gray-900 dark:text-white" onClick={logout}>
+            <NavLink to={"/Profile?name=" + getProfileName()} className="block mt-4">
+              Your profile
+            </NavLink>
+            <button className="mt-4" onClick={logout}>
               Log out
             </button>
           </>

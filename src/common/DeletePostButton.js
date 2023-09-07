@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { getProfileName, getToken } from "./LocalStorage";
 import { BASE_API } from "../constants/api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function DeletePostButton({ postId }) {
   const [areYouSure, setAreYouSure] = useState(false);
@@ -38,12 +38,16 @@ function DeletePostButton({ postId }) {
   if (deleteSuccess) {
     return (
       <>
-        <h3 className="text-center text-lg text-gray-900 dark:text-white font-semibold">Post deleted</h3>
-        <Link to={"/Profile?name=" + getProfileName()} className="mx-2">
-          <button className="my-5 block mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center">
-            Back to profile
-          </button>
-        </Link>
+        <div className="text-center">
+          <h3 className="text-center text-3xl text-gray-900 dark:text-white font-semibold">Success!</h3>
+          <p className="text-lg text-gray-900 dark:text-white">Post was deleted.</p>
+          <p className="text-3xl">❌</p>
+          <Link to={"/Profile?name=" + getProfileName()} className="mx-2">
+            <button className="my-5 block mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center">
+              Back to profile
+            </button>
+          </Link>
+        </div>
       </>
     );
   }
@@ -51,16 +55,18 @@ function DeletePostButton({ postId }) {
   return (
     <>
       {!areYouSure ? (
-        <button
-          onClick={deleteClick}
-          className="my-5 block mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center"
-        >
-          Delete post
-        </button>
+        <div className="flex flex-row justify-end max-w-sm mx-auto">
+          <button
+            onClick={deleteClick}
+            className="my-5 block mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center"
+          >
+            Delete post
+          </button>
+        </div>
       ) : (
         <>
           <h3 className="text-center text-lg text-gray-900 dark:text-white font-semibold">Delete post?</h3>
-          <div className="flex flex-row justify-end max-w-sm mx-auto">
+          <div className="flex flex-row justify-between max-w-sm mx-auto">
             <button
               onClick={yesClick}
               className="my-5 block mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center"

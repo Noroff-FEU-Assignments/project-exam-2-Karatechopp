@@ -14,8 +14,6 @@ function Register() {
   } = useForm();
 
   async function onSubmit(data) {
-    console.log(data);
-
     try {
       const response = await axios.post(BASE_API + "auth/register/", data);
       if (response.status === 200) {
