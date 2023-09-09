@@ -38,7 +38,7 @@ function CreateNewPost() {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 h-screen p-4">
+    <div className="max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 h-screen p-4">
       <div className="px-6 py-8 mx-auto mt-10 lg:py-0">
         <div className="max-w-5xl mx-auto bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="w-full p-6 space-y-4 md:space-y-6 sm:p-8">

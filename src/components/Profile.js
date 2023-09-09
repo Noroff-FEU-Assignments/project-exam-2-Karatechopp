@@ -71,7 +71,7 @@ function Profile() {
     <>
       <div className="max-w-7xl mx-auto text-center text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 max-h-full min-h-screen">
         {profileData.banner !== null && profileData.banner !== "" ? (
-          <img src={profileData.banner} alt="Banner" className="w-full max-h-96 object-cover rounded-t mb-2" />
+          <img src={profileData.banner} alt="Banner" className="w-full max-h-96 object-cover mb-2" />
         ) : (
           <div className="text-gray-900 dark:text-white text-center mb-16">No banner</div>
         )}
@@ -88,14 +88,14 @@ function Profile() {
             </div>
             {getProfileName() === profileData.name ? (
               <Link to="/UpdateAvatarBanner">
-                <button className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
+                <button className="my-5 mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
                   Update Avatar and banner
                 </button>
               </Link>
             ) : (
               <button
                 onClick={() => UpdateFollowProfile(profileNameQuery, isFollowing)}
-                className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center"
+                className="my-5 mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center"
               >
                 {isFollowing === "/follow" ? "Follow user" : "Unfollow user"}
               </button>
@@ -115,7 +115,7 @@ function Profile() {
           </div>
           {getProfileName() === profileData.name && (
             <Link to={"/CreateNewPost"}>
-              <button className="my-5 mx-auto block text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
+              <button className="my-5 mx-auto text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-lg px-4 py-1.5 text-center">
                 Create new post
               </button>
             </Link>

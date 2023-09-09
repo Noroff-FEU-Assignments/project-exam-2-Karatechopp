@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body, html, #root {
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(17, 24, 39, 1);
   margin: 0;
   padding: 0;

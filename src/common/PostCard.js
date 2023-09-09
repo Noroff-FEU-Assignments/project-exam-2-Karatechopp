@@ -4,7 +4,7 @@ export function PostCard({ post, avatar }) {
   return (
     <>
       <Link to={`/ViewPost?id=${post.id}`} className="">
-        <div className="dark:bg-gray-900 dark:text-white text-black bg-slate-200 p-4 space-y-4 border border-gray-900 dark:border-gray-500 mt-4 rounded transform hover:scale-95 transition-transform shadow">
+        <div className="dark:bg-gray-900 dark:text-white text-black bg-white p-4 space-y-4 border border-gray-900 dark:border-gray-500 mt-4 rounded transform hover:scale-95 transition-transform shadow">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-semibold">{post.title}</h2>
             <div className="text-gray-500 text-sm">{new Date(post.created).toLocaleDateString()}</div>

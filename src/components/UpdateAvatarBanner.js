@@ -45,9 +45,9 @@ export function UpdateAvatarBanner() {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 h-screen p-4">
+    <div className="max-w-7xl mx-auto bg-gray-50 dark:bg-gray-900 h-screen">
       {banner !== null && banner !== "" ? (
-        <img src={banner} alt="Banner" className="w-full max-h-96 object-cover rounded-t mb-2" />
+        <img src={banner} alt="Banner" className="w-full max-h-96 object-cover mb-2" />
       ) : (
         <div className="text-gray-900 dark:text-white text-center mb-16">No banner</div>
       )}
